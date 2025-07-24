@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo del Portal de Alertas</title>
+    <!-- Bootstrap and jQuery for styling and functionality -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        /* Basic styling for the page */
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .main-container { max-width: 900px; margin: 2rem auto; }
+        .card { border: none; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.08); }
+        .card-header { background-image: linear-gradient(to right, #005a9c, #007bff); color: white; text-align: center; border-radius: 15px 15px 0 0 !important; padding: 1.5rem; }
+        .card-header h1 { font-weight: 700; margin: 0; font-size: 1.8rem; }
+        .card-body { padding: 2rem; }
+        footer { text-align: center; margin-top: 2rem; color: #888; }
+        .spinner-border { width: 3rem; height: 3rem; }
+        .hidden { display: none !important; }
+        .demo-banner { background-color: #ffc107; color: #333; padding: 10px; text-align: center; border-radius: 10px; margin-bottom: 1rem; }
+        .demo-banner a { color: #0056b3; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="demo-banner">
+            <p class="m-0">⚠️ Estás viendo una **demostración visual no funcional**. Para usar la aplicación real, haz clic aquí: 
+            <a href="URL_DE_TU_WEB_APP_REAL" target="_blank">Acceder a la Aplicación Funcional</a></p>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h1>Portal de Alertas por Mail</h1>
+            </div>
+            <div class="card-body">
+                <div id="main-content">
+                    <div class="form-group" style="max-width: 600px; margin: auto; margin-bottom: 2rem;">
+                        <label for="oossSheetSelect"><b>1. Seleccioná una hoja a notificar:</b></label>
+                        <select class="form-control" id="oossSheetSelect">
+                            <option value="">Cargando hojas...</option>
+                        </select>
+                    </div>
+                    <div class="card mb-4" style="max-width: 600px; margin: auto; background-color: #f8f9fa;">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">🚨 Alertas para Cotizar</h5>
+                            <div class="alert alert-secondary p-2 small">
+                                Revisa la columna "ESTADO C GRAL" en busca de "Cotizar".
+                            </div>
+                            <div class="btn-group btn-block mt-3">
+                                <button class="btn btn-secondary action-button" onclick="llamarReinicio('cotizar')" disabled>Reiniciar Notificaciones</button>
+                                <button class="btn btn-primary action-button" onclick="llamarAlerta('cotizar')" disabled>Verificar y Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4" style="max-width: 600px; margin: auto; background-color: #f8f9fa;">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">📋 Alertas de Pacientes Pendientes</h5>
+                            <div class="alert alert-secondary p-2 small">
+                                Revisa la columna "ESTADO" en busca de "PENDIENTE".
+                            </div>
+                            <div class="btn-group btn-block mt-3">
+                                <button class="btn btn-secondary action-button" onclick="llamarReinicio('pendientes')" disabled>Reiniciar Notificaciones</button>
+                                <button class="btn btn-info action-button" onclick="llamarAlerta('pendientes')" disabled>Verificar y Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width: 600px; margin: auto; background-color: #fff3cd;">
+                        <div class="card-body">
+                            <h5 class="card-title text-muted">🗓️ Resumen Diario Manual</h5>
+                            <div class="alert alert-warning p-2 small">
+                                Este botón ejecuta el proceso de resumen diario para todas las hojas aplicables.
+                            </div>
+                            <button class="btn btn-warning btn-block" onclick="llamarResumenDiario()">Generar y Enviar Resumen Diario</button>
+                        </div>
+                    </div>
+                    <div id="loaderAlertas" class="d-flex justify-content-center mt-4 hidden">
+                        <div class="spinner-border text-primary" role="status"><span class="sr-only">Cargando...</span></div>
+                    </div>
+                    <div id="resultadoAlertas" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            Creado por Agustín Crespi
+        </footer>
+    </div>
+    <div class="modal fade" id="simpleAlertModal" tabindex="-1">
+        <div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="simpleAlertModalLabel"></h5><button type="button" class="close" data-dismiss="modal">&times;</button></div><div class="modal-body" id="simpleAlertModalBody"></div></div></div>
+    </div>
+    <!-- Link to the local demo script -->
+    <script src="script.js"></script>
+</body>
+</html>
